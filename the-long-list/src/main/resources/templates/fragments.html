@@ -2,10 +2,12 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org/">
 <head th:fragment="head">
     <meta charset="UTF-8"/>
-    <title>Coding Events</title>
+    <title>The Long List</title>
 
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Sue+Ellen+Francisco&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Bree+Serif&display=swap" rel="stylesheet">
 
     <link rel="stylesheet" th:href="@{/styles.css}">
 
@@ -13,9 +15,11 @@
 <body>
 
 <header th:fragment="header">
-    <h1 th:text="${title}">The Long List</h1>
+    <h1>The Long List</h1>
+    <h2 th:text="${title}">The Long List</h2>
     <ul class="nav">
         <li class="nav-item"><a class="nav-link" href="/login">Login</a></li>
+        <li class="nav-item"><a class="nav-link" href="/register">Register</a></li>
     </ul>
 </header>
 
