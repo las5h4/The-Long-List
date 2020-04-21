@@ -6,18 +6,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-public class Ingredient extends AbstractEntity {
+public class Course extends AbstractEntity {
 
     private String name;
 
-    @ManyToMany(mappedBy = "ingredients")
-    private List<Course> courses = new ArrayList<>();
+    @ManyToMany
+    private final List<Ingredient> ingredients = new ArrayList<>();
 
-    public Ingredient(String name) {
+    public Course(String name) {
         this.name = name;
     }
 
-    public Ingredient() {
+    public Course() {
     }
 
     public String getName() {
@@ -26,5 +26,13 @@ public class Ingredient extends AbstractEntity {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public List<Ingredient> getIngredients() {
+        return ingredients;
+    }
+
+    public void addIngredients(Ingredient ingredient){
+        this.ingredients.add(ingredient);
     }
 }
