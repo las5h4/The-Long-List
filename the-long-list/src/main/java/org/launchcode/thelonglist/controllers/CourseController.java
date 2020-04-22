@@ -3,13 +3,14 @@ package org.launchcode.thelonglist.controllers;
 import org.launchcode.thelonglist.data.CourseRepository;
 import org.launchcode.thelonglist.data.IngredientRepository;
 import org.launchcode.thelonglist.models.Course;
+import org.launchcode.thelonglist.models.Ingredient;
+import org.launchcode.thelonglist.models.dto.CourseIngredientDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.Optional;
 
 @Controller
 @RequestMapping("courses")
@@ -41,5 +42,17 @@ public class CourseController {
         model.addAttribute("title", "My Courses");
         model.addAttribute("courses", courseRepository.findAll());
         return "redirect:";
+    }
+
+    @GetMapping("add-course-ingredient")
+    public String displayAddCourseIngredientForm(@RequestParam Integer courseId, Model model) {
+        Optional<Course> result = courseRepository.findById(courseId);
+        Course course = result.get();
+        model.addAttribute("title", "Add Ingredient to " + course.getName());
+        model.addAttribute("ingredients", ingredientRepository.findAll());
+        CourseIngredientDTO courseIngredient = new CourseIngredientDTO();
+        courseIngredient.setCourse(course);
+        model.addAttribute("courseIngredient", courseIngredient);
+        return "courses/add-course-ingredient";
     }
 }

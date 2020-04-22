@@ -6,6 +6,12 @@
 <table class="table">
     <tr th:each="course : ${courses}">
         <td th:text="${course.name}"></td>
+        <td>
+            <span th:each="ingredient : ${ingredients}" th:text="${ingredient.name} + ', '"></span>
+        </td>
+        <td>
+            <a th:href="'courses/add-course-ingredient?courseId=' + ${course.id}">Add Ingredient</a>
+        </td>
     </tr>
 </table>
 <a href="courses/create">Create a new Course</a>
