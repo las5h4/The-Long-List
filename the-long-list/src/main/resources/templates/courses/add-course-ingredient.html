@@ -5,9 +5,9 @@
 <header th:replace="fragments :: header"></header>
 <form method="post">
     <div class="form-group">
-        <input type="hidden" th:field="${courseIngredient.course}">
+        <input type="hidden" th:field="${courseIngredient.course.id}">
         <select th:field="${courseIngredient.ingredient}">
-            <option th:each="ingredient : ${ingredients}" th:value="${ingredient.id}" th:text="${ingredient.name}"
+            <option th:each="ingredient : ${ingredients}" th:value="${ingredient.id}" th:text="${ingredient.name}"></option>
         </select>
     </div>
     <div class="form-group">

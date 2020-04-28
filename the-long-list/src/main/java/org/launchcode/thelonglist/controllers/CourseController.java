@@ -55,4 +55,17 @@ public class CourseController {
         model.addAttribute("courseIngredient", courseIngredient);
         return "courses/add-course-ingredient";
     }
+
+    @PostMapping("add-course-ingredient")
+    public String processAddCourseIngredientForm(@ModelAttribute CourseIngredientDTO courseIngredient, Model model) {
+        Course course = courseIngredient.getCourse();
+        Ingredient ingredient = courseIngredient.getIngredient();
+        if (!course.getIngredients().contains(ingredient)) {
+            course.addIngredients(ingredient);
+            courseRepository.save(course);
+        }
+        model.addAttribute("title", "My Courses");
+        model.addAttribute("courses", courseRepository.findAll());
+        return "redirect:";
+    }
 }
