@@ -47,7 +47,9 @@ public class CourseController {
     @GetMapping("add-course-ingredient")
     public String displayAddCourseIngredientForm(@RequestParam Integer courseId, Model model) {
         Optional<Course> result = courseRepository.findById(courseId);
+//        System.out.println(result);
         Course course = result.get();
+//        System.out.println(course.getName());
         model.addAttribute("title", "Add Ingredient to " + course.getName());
         model.addAttribute("ingredients", ingredientRepository.findAll());
         CourseIngredientDTO courseIngredient = new CourseIngredientDTO();
@@ -58,8 +60,11 @@ public class CourseController {
 
     @PostMapping("add-course-ingredient")
     public String processAddCourseIngredientForm(@ModelAttribute CourseIngredientDTO courseIngredient, Model model) {
+        System.out.println(courseIngredient.getCourse().getName());
         Course course = courseIngredient.getCourse();
+        System.out.println(course.getName());
         Ingredient ingredient = courseIngredient.getIngredient();
+        System.out.println(ingredient.getName());
         if (!course.getIngredients().contains(ingredient)) {
             course.addIngredients(ingredient);
             courseRepository.save(course);
