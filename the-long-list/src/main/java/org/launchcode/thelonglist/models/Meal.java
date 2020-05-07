@@ -46,8 +46,8 @@ public class Meal extends AbstractEntity {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setName() {
+        this.name = "Day " + day + " " + mealType;
     }
 
     public List<Course> getCourses() {

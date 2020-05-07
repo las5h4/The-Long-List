@@ -41,6 +41,7 @@ public class MealController {
 
     @PostMapping("create")
     public String processCreateMealForm(@ModelAttribute Meal newMeal, Model model) {
+        newMeal.setName();
         mealRepository.save(newMeal);
         model.addAttribute("title", "My Meals");
         model.addAttribute("meals", mealRepository.findAll());
