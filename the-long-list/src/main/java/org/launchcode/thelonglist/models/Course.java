@@ -13,6 +13,9 @@ public class Course extends AbstractEntity {
     @ManyToMany
     private final List<Ingredient> ingredients = new ArrayList<>();
 
+    @ManyToMany(mappedBy = "courses")
+    private final List<Meal> meals = new ArrayList<>();
+
     public Course(String name) {
         this.name = name;
     }

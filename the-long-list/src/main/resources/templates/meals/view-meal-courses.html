@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html language="en" xmlns:th="http://www.thymeleaf.org/">
+<head th:replace="fragments :: head"></head>
+<body>
+<header th:replace="fragments :: header"></header>
+<table class="table">
+    <tr th:each="course : ${courses}">
+        <td th:text="${course.name}"></td>
+    </tr>
+</table>
+<a href="/add-meal-course">Add Course</a>
+<a href="./">Back to Meals</a>
+</body>
+</html>
