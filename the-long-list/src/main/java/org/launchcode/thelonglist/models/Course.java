@@ -32,7 +32,17 @@ public class Course extends AbstractEntity {
         return ingredients;
     }
 
+    public String showIngredients() {
+        String ingredientsString = null;
+        for (Ingredient ingredient : ingredients) {
+            ingredientsString.concat(ingredient.getName() + ", ");
+        }
+        return ingredientsString;
+    }
+
     public void addIngredients(Ingredient ingredient){
         this.ingredients.add(ingredient);
     }
+
+
 }

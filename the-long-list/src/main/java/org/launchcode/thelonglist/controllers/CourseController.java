@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Optional;
 
 @Controller
-@RequestMapping("courses")
+@RequestMapping(value = "courses")
 public class CourseController {
 
     @Autowired
@@ -47,24 +47,19 @@ public class CourseController {
     @GetMapping("add-course-ingredient")
     public String displayAddCourseIngredientForm(@RequestParam Integer courseId, Model model) {
         Optional<Course> result = courseRepository.findById(courseId);
-//        System.out.println(result);
         Course course = result.get();
-//        System.out.println(course.getName());
         model.addAttribute("title", "Add Ingredient to " + course.getName());
         model.addAttribute("ingredients", ingredientRepository.findAll());
         CourseIngredientDTO courseIngredient = new CourseIngredientDTO();
         courseIngredient.setCourse(course);
         model.addAttribute("courseIngredient", courseIngredient);
-        return "courses/add-course-ingredient";
+        return "courses/add-course-ingredient.html";
     }
 
     @PostMapping("add-course-ingredient")
     public String processAddCourseIngredientForm(@ModelAttribute CourseIngredientDTO courseIngredient, Model model) {
-        System.out.println(courseIngredient.getCourse().getName());
         Course course = courseIngredient.getCourse();
-        System.out.println(course.getName());
         Ingredient ingredient = courseIngredient.getIngredient();
-        System.out.println(ingredient.getName());
         if (!course.getIngredients().contains(ingredient)) {
             course.addIngredients(ingredient);
             courseRepository.save(course);
@@ -72,5 +67,14 @@ public class CourseController {
         model.addAttribute("title", "My Courses");
         model.addAttribute("courses", courseRepository.findAll());
         return "redirect:";
+    }
+
+    @GetMapping("view-course-ingredients")
+    public String viewCourseIngredients(@RequestParam int courseId, Model model) {
+        Optional<Course> result = courseRepository.findById(courseId);
+        Course course = result.get();
+        model.addAttribute("title", course.getName()+" Ingredients");
+        model.addAttribute("ingredients", course.getIngredients());
+        return "courses/view-course-ingredients.html";
     }
 }

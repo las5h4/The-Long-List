@@ -7,7 +7,7 @@
     <tr th:each="course : ${courses}">
         <td th:text="${course.name}"></td>
         <td>
-            <span th:each="ingredient : ${ingredients}" th:text="${ingredient.name} + ', '"></span>
+            <a th:href="'courses/view-course-ingredients?courseId=' + ${course.id}">View Ingredients</a>
         </td>
         <td>
             <a th:href="'courses/add-course-ingredient?courseId=' + ${course.id}">Add Ingredient</a>
