@@ -79,6 +79,7 @@ public class MealController {
         Meal meal = result.get();
         model.addAttribute("title", meal.getName()+" Courses");
         model.addAttribute("courses", meal.getCourses());
+        model.addAttribute("mealId", mealId);
         return "meals/view-meal-courses.html";
     }
 }

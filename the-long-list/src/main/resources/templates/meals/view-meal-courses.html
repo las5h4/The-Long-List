@@ -8,7 +8,7 @@
         <td th:text="${course.name}"></td>
     </tr>
 </table>
-<a href="/add-meal-course">Add Course</a>
+<a th:href="'meals/add-meal-course?mealId=' + ${mealId}">Add Course</a>
 <a href="./">Back to Meals</a>
 </body>
 </html>
