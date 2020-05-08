@@ -17,6 +17,9 @@ public class Meal extends AbstractEntity {
     @ManyToMany
     private final List<Course> courses = new ArrayList<>();
 
+    @ManyToMany(mappedBy = "meals")
+    private final List<Day> days = new ArrayList<>();
+
     public Meal(int day, String mealType) {
         this.day = day;
         this.mealType = mealType;

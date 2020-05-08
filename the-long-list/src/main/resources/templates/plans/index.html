@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html language="en" xmlns:th="http://www.thymeleaf.org/">
+<head th:replace="fragments :: head"></head>
+<body>
+<header th:replace="fragments :: header"></header>
+<table class="table">
+    <tr>
+        <th>Plan Name</th>
+        <th>Length</th>
+    </tr>
+    <tr th:each="plan : ${plans}">
+        <td th:text="${plan.name}"></td>
+        <td th:text="'${plan.planLength}' + ' days'"></td>
+    </tr>
+</table>
+<a href="plans/start-new">Start a new Plan</a>
+</body>
+</html>
