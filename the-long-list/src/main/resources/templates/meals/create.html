@@ -5,8 +5,8 @@
 <header th:replace="fragments :: header"></header>
 <form method="post">
     <div class="form-group">
-        <label>Day
-            <input th:field="${meal.day}" class="form-control">
+        <label>
+            <input type="hidden" th:field="${meal.day}" class="form-control">
         </label>
         <label>Meal
             <input th:field="${meal.mealType}" class="form-control">

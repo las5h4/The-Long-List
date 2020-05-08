@@ -3,6 +3,7 @@ package org.launchcode.thelonglist.models;
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,7 +12,7 @@ public class Day extends AbstractEntity {
 
     private String name;
 
-    @ManyToMany
+    @OneToMany(mappedBy = "day")
     private final List<Meal> meals = new ArrayList<>();
 
     @ManyToOne

@@ -2,38 +2,37 @@ package org.launchcode.thelonglist.models;
 
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import java.util.ArrayList;
 import java.util.List;
+import org.launchcode.thelonglist.models.Day;
 
 @Entity
 public class Meal extends AbstractEntity {
 
     private String name;
 
-    private int day;
+    @ManyToOne
+    private Day day;
 
     private String mealType;
 
     @ManyToMany
     private final List<Course> courses = new ArrayList<>();
 
-    @ManyToMany(mappedBy = "meals")
-    private final List<Day> days = new ArrayList<>();
-
-    public Meal(int day, String mealType) {
+    public Meal(Day day, String mealType) {
         this.day = day;
         this.mealType = mealType;
-        this.name = "Day " + day + " " + mealType;
     }
 
     public Meal() {
     }
 
-    public int getDay() {
+    public Day getDay() {
         return day;
     }
 
-    public void setDay(int day) {
+    public void setDay(Day day) {
         this.day = day;
     }
 
@@ -50,7 +49,7 @@ public class Meal extends AbstractEntity {
     }
 
     public void setName() {
-        this.name = "Day " + day + " " + mealType;
+        this.name = day.getName() + " " + mealType;
     }
 
     public List<Course> getCourses() {

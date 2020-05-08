@@ -1,9 +1,11 @@
 package org.launchcode.thelonglist.controllers;
 
 import org.launchcode.thelonglist.data.CourseRepository;
+import org.launchcode.thelonglist.data.DayRepository;
 import org.launchcode.thelonglist.data.IngredientRepository;
 import org.launchcode.thelonglist.data.MealRepository;
 import org.launchcode.thelonglist.models.Course;
+import org.launchcode.thelonglist.models.Day;
 import org.launchcode.thelonglist.models.Ingredient;
 import org.launchcode.thelonglist.models.Meal;
 import org.launchcode.thelonglist.models.dto.CourseIngredientDTO;
@@ -25,6 +27,9 @@ public class MealController {
     @Autowired
     MealRepository mealRepository;
 
+    @Autowired
+    DayRepository dayRepository;
+
     @GetMapping
     public String displayMeals(Model model) {
         model.addAttribute("title", "My Meals");
@@ -33,9 +38,13 @@ public class MealController {
     }
 
     @GetMapping("create")
-    public String displayCreateMealForm(Model model) {
+    public String displayCreateMealForm(@RequestParam int dayId, Model model) {
+        Optional<Day> result = dayRepository.findById(dayId);
+        Day day = result.get();
+        Meal meal = new Meal();
+        meal.setDay(day);
         model.addAttribute("title", "Create a new Meal");
-        model.addAttribute(new Meal());
+        model.addAttribute("meal", meal);
         return "meals/create";
     }
 
@@ -43,9 +52,11 @@ public class MealController {
     public String processCreateMealForm(@ModelAttribute Meal newMeal, Model model) {
         newMeal.setName();
         mealRepository.save(newMeal);
-        model.addAttribute("title", "My Meals");
-        model.addAttribute("meals", mealRepository.findAll());
-        return "redirect:";
+        int dayId = newMeal.getDay().getId();
+        model.addAttribute("title", newMeal.getDay().getName());
+        model.addAttribute("meals", newMeal.getDay().getMeals());
+        model.addAttribute("dayId", dayId);
+        return "plans/day";
     }
 
     @GetMapping("add-meal-course")
