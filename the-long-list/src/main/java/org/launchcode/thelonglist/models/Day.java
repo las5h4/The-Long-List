@@ -40,4 +40,8 @@ public class Day extends AbstractEntity {
     public void addMeal(Meal meal) {
         meals.add(meal);
     }
+
+    public Plan getPlan() {
+        return plan;
+    }
 }

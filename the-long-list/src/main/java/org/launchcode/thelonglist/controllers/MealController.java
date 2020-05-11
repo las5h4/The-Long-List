@@ -52,10 +52,9 @@ public class MealController {
     public String processCreateMealForm(@ModelAttribute Meal newMeal, Model model) {
         newMeal.setName();
         mealRepository.save(newMeal);
-        int dayId = newMeal.getDay().getId();
         model.addAttribute("title", newMeal.getDay().getName());
         model.addAttribute("meals", newMeal.getDay().getMeals());
-        model.addAttribute("dayId", dayId);
+        model.addAttribute("dayId", newMeal.getDay().getId());
         return "plans/day";
     }
 
