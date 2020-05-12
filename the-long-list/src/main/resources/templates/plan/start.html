@@ -3,7 +3,7 @@
 <head th:replace="fragments :: head"></head>
 <body>
 <header th:replace="fragments :: header"></header>
-<form method="post">
+<form action="/plan/create">
     <div class="form-group">
         <label>Name your new Plan
             <input th:field="${plan.name}" class="form-control">

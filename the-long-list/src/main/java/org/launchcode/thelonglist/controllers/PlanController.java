@@ -1,80 +1,123 @@
 package org.launchcode.thelonglist.controllers;
 
-import org.launchcode.thelonglist.data.DayRepository;
-import org.launchcode.thelonglist.data.PlanRepository;
-import org.launchcode.thelonglist.models.Day;
-import org.launchcode.thelonglist.models.Meal;
-import org.launchcode.thelonglist.models.Plan;
+import org.launchcode.thelonglist.data.*;
+import org.launchcode.thelonglist.models.*;
+import org.launchcode.thelonglist.models.dto.MealCourseDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.view.RedirectView;
 
 import java.util.Optional;
 
 @Controller
-@RequestMapping("plans")
+@RequestMapping("plan")
 public class PlanController {
+
+    @Autowired
+    DayRepository dayRepository;
 
     @Autowired
     PlanRepository planRepository;
 
     @Autowired
-    DayRepository dayRepository;
+    MealRepository mealRepository;
 
-    @GetMapping
-    public String viewPlans(Model model) {
-        model.addAttribute("title", "My Plans");
-        model.addAttribute("plans", planRepository.findAll());
-        return "plans/index";
-    }
+    @Autowired
+    CourseRepository courseRepository;
 
-    @GetMapping("start-new")
+    @Autowired
+    IngredientRepository ingredientRepository;
+
+    @GetMapping("start")
     public String startNewPlan(Model model) {
-        model.addAttribute("title", "Start A New Plan");
+        model.addAttribute("title", "Start New Plan");
         model.addAttribute(new Plan());
-        return "plans/start-new";
+        return "plan/start";
     }
 
-    @PostMapping("start-new")
-    public void createNewPlan(@ModelAttribute Plan newPlan, Model model) {
-        for(int i = 0; i < newPlan.getPlanLength(); i++) {
-            Day day = new Day(newPlan.getName() + " Day " + (i + 1));
-            newPlan.addDay(day);
+    @GetMapping("create")
+    public RedirectView createNewPlan(@ModelAttribute Plan plan) {
+        for(int i = 0; i < plan.getPlanLength(); i++) {
+            Day day = new Day(plan.getName() + " Day " + (i + 1));
+            plan.addDay(day);
+            day.setPlan(plan);
             dayRepository.save(day);
         }
-        planRepository.save(newPlan);
-        model.addAttribute("title", newPlan.getName());
-        model.addAttribute("subtitle", "Click on a Day to add Meals");
-        model.addAttribute("planDays", newPlan.getDays());
-//        return "plans/new-plan";
-        showPlan(newPlan.getId(), model);
+        planRepository.save(plan);
+        return new RedirectView("/plan/"+plan.getId());
     }
 
-    @GetMapping("new-plan/{id}")
-    public String showPlan(@RequestParam Integer planId, Model model) {
+    @GetMapping("{planId}")
+    public String displayNewPlanHome(@PathVariable Integer planId, Model model) {
         Optional<Plan> result = planRepository.findById(planId);
-        Plan newPlan = result.get();
-        for(int i = 0; i < newPlan.getPlanLength(); i++) {
-            Day day = new Day(newPlan.getName() + " Day " + (i + 1));
-            newPlan.addDay(day);
-            dayRepository.save(day);
-        }
-        planRepository.save(newPlan);
-        model.addAttribute("title", newPlan.getName());
+        Plan plan = result.get();
+        model.addAttribute("title", plan.getName());
         model.addAttribute("subtitle", "Click on a Day to add Meals");
-        model.addAttribute("planDays", newPlan.getDays());
-        return "plans/new-plan";
+        model.addAttribute("planDays", plan.getDays());
+        model.addAttribute("planId", planId);
+        return "plan/home";
     }
 
-    @GetMapping("day")
-    public String showPlanDay(@RequestParam int dayId, Model model) {
+    @GetMapping("{planId}/day/{dayId}")
+    public String displayDayMeals(@PathVariable Integer dayId, @PathVariable Integer planId, Model model) {
         Optional<Day> result = dayRepository.findById(dayId);
         Day day = result.get();
         model.addAttribute("title", day.getName());
         model.addAttribute("meals", day.getMeals());
-        model.addAttribute("dayId", day.getId());
-        model.addAttribute("planId", day.getPlan().getId());
-        return "plans/day";
+        model.addAttribute("dayId", dayId);
+        model.addAttribute("planId", planId);
+        return "plan/day";
+    }
+
+    @GetMapping("{planId}/day/{dayId}/add-meal")
+    public String displayAddMealForm(@PathVariable Integer dayId, @PathVariable Integer planId, Model model){
+        Optional<Day> result = dayRepository.findById(dayId);
+        Day day = result.get();
+        model.addAttribute("title", "New Meal");
+        model.addAttribute("dayName", day.getName());
+        model.addAttribute("dayId", dayId);
+        model.addAttribute("planId", planId);
+        model.addAttribute(new Meal());
+        return "plan/add-meal";
+    }
+
+    @GetMapping("{planId}/day/{dayId}/create")
+    public RedirectView processAddMealForm(@ModelAttribute Meal meal, @PathVariable Integer dayId, @PathVariable Integer planId) {
+        Optional<Day> result = dayRepository.findById(dayId);
+        Day day = result.get();
+        meal.setDay(day);
+        mealRepository.save(meal);
+        return new RedirectView("/plan/"+planId+"/day/"+dayId+"/meal/"+meal.getId());
+    }
+
+    @GetMapping("{planId}/day/{dayId}/meal/{mealId}")
+    public String displayAddMealCoursesForm(@PathVariable Integer mealId, @PathVariable Integer dayId, @PathVariable Integer planId, Model model) {
+        Optional<Meal> result = mealRepository.findById(mealId);
+        Meal meal = result.get();
+        MealCourseDTO mealCourse = new MealCourseDTO();
+        mealCourse.setMeal(meal);
+        model.addAttribute("mealCourse", mealCourse);
+        model.addAttribute("title", meal.getName());
+        model.addAttribute("mealCourses", meal.getCourses());
+        model.addAttribute("allCourses", courseRepository.findAll());
+        model.addAttribute("dayId", dayId);
+        model.addAttribute("planId", planId);
+        model.addAttribute("mealId", mealId);
+        return "plan/meal-courses";
+    }
+
+    @GetMapping("{planId}/day/{dayId}/meal/{mealId}/add-course")
+    public RedirectView addCourse(@ModelAttribute MealCourseDTO mealCourse, @PathVariable Integer mealId, @PathVariable Integer dayId, @PathVariable Integer planId) {
+        Meal meal = mealCourse.getMeal();
+        Course course = mealCourse.getCourse();
+        if (!meal.getCourses().contains(course)) {
+            meal.addCourses(course);
+            mealRepository.save(meal);
+        }
+        return new RedirectView("/plan/"+planId+"/day/"+dayId+"/meal/"+mealId);
     }
 }

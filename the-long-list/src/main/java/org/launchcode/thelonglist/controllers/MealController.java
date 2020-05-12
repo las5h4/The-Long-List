@@ -48,15 +48,15 @@ public class MealController {
         return "meals/create";
     }
 
-    @PostMapping("create")
-    public String processCreateMealForm(@ModelAttribute Meal newMeal, Model model) {
-        newMeal.setName();
-        mealRepository.save(newMeal);
-        model.addAttribute("title", newMeal.getDay().getName());
-        model.addAttribute("meals", newMeal.getDay().getMeals());
-        model.addAttribute("dayId", newMeal.getDay().getId());
-        return "plans/day";
-    }
+//    @PostMapping("create")
+//    public String processCreateMealForm(@ModelAttribute Meal newMeal, Model model) {
+//        newMeal.setName();
+//        mealRepository.save(newMeal);
+//        model.addAttribute("title", newMeal.getDay().getName());
+//        model.addAttribute("meals", newMeal.getDay().getMeals());
+//        model.addAttribute("dayId", newMeal.getDay().getId());
+//        return "plans/day";
+//    }
 
     @GetMapping("add-meal-course")
     public String displayAddMealCourseForm(@RequestParam Integer mealId, Model model) {

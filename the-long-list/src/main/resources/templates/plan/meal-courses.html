@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html language="en" xmlns:th="http://www.thymeleaf.org/">
+<head th:replace="fragments :: head"></head>
+<body>
+<header th:replace="fragments :: header"></header>
+<table class="table">
+    <tr>
+        <th>Courses</th>
+    </tr>
+    <tr th:each="mealCourse : ${mealCourses}">
+        <td th:text="${mealCourse.name}"></td>
+    </tr>
+</table>
+<form th:action="'/plan/'+${planId}+'/day/'+${dayId}+'/meal/'+${mealId}+'/add-course'">
+    <div class="form-group">
+        <input type = "hidden" th:field="${mealCourse.meal}">
+        <select th:field="${mealCourse.course}">
+            <option th:each="course : ${allCourses}" th:value="${course.id}" th:text="${course.name}"></option>
+        </select>
+    </div>
+    <div class="form-group">
+        <input type="submit" value="Add Course" class="btn btn-success">
+    </div>
+</form>
+<a th:href="'/plan/'+${planId}+'/day/'+${dayId}+'/meal/'+${mealId}+'/create-course'" class="btn btn-success" role="button">Create a new Course</a>
+<a th:href="'/plan/'+${planId}+'/day/'+${dayId}" class="btn btn-success" role="button">Back</a>
+</body>
+</html>

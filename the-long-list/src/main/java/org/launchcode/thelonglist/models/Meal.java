@@ -15,14 +15,12 @@ public class Meal extends AbstractEntity {
     @ManyToOne
     private Day day;
 
-    private String mealType;
-
     @ManyToMany
     private final List<Course> courses = new ArrayList<>();
 
-    public Meal(Day day, String mealType) {
+    public Meal(String name, Day day) {
         this.day = day;
-        this.mealType = mealType;
+        this.name = name;
     }
 
     public Meal() {
@@ -36,20 +34,12 @@ public class Meal extends AbstractEntity {
         this.day = day;
     }
 
-    public String getMealType() {
-        return mealType;
-    }
-
-    public void setMealType(String mealType) {
-        this.mealType = mealType;
-    }
-
     public String getName() {
         return name;
     }
 
-    public void setName() {
-        this.name = day.getName() + " " + mealType;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public List<Course> getCourses() {
