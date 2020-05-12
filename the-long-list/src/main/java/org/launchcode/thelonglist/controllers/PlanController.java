@@ -37,7 +37,7 @@ public class PlanController {
     }
 
     @PostMapping("start-new")
-    public String createNewPlan(@ModelAttribute Plan newPlan, Model model) {
+    public void createNewPlan(@ModelAttribute Plan newPlan, Model model) {
         for(int i = 0; i < newPlan.getPlanLength(); i++) {
             Day day = new Day(newPlan.getName() + " Day " + (i + 1));
             newPlan.addDay(day);
@@ -47,11 +47,12 @@ public class PlanController {
         model.addAttribute("title", newPlan.getName());
         model.addAttribute("subtitle", "Click on a Day to add Meals");
         model.addAttribute("planDays", newPlan.getDays());
-        return "plans/new-plan";
+//        return "plans/new-plan";
+        showPlan(newPlan.getId(), model);
     }
 
-    @GetMapping("new-plan")
-    public String showPlan(@RequestParam int planId, Model model) {
+    @GetMapping("new-plan/{id}")
+    public String showPlan(@RequestParam Integer planId, Model model) {
         Optional<Plan> result = planRepository.findById(planId);
         Plan newPlan = result.get();
         for(int i = 0; i < newPlan.getPlanLength(); i++) {

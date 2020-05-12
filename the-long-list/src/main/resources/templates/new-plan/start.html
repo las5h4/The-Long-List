@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html language="en" xmlns:th="http://www.thymeleaf.org/">
+<head th:replace="fragments :: head"></head>
+<body>
+<header th:replace="fragments :: header"></header>
+<form action="/new-plan/create">
+    <div class="form-group">
+        <label>Name your new Plan
+            <input th:field="${plan.name}" class="form-control">
+        </label>
+        <label>How many days are you planning for?
+            <input th:field="${plan.planLength}" class="form-control">
+        </label>
+    </div>
+    <div class="form-group">
+        <input type="submit" value="Next" class="btn btn-success">
+    </div>
+</form>
+
+</body>
+</html>

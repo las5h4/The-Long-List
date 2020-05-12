@@ -1,9 +1,6 @@
 package org.launchcode.thelonglist.models;
 
-import javax.persistence.Entity;
-import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,7 +12,7 @@ public class Day extends AbstractEntity {
     @OneToMany(mappedBy = "day")
     private final List<Meal> meals = new ArrayList<>();
 
-    @ManyToOne
+    @ManyToOne(cascade = {CascadeType.ALL})
     private Plan plan;
 
     public Day(String name) {
@@ -43,5 +40,9 @@ public class Day extends AbstractEntity {
 
     public Plan getPlan() {
         return plan;
+    }
+
+    public void setPlan(Plan plan) {
+        this.plan = plan;
     }
 }
