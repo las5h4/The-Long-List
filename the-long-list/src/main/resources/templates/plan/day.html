@@ -8,7 +8,7 @@
         <th>Meals</th>
     </tr>
     <tr th:each="meal : ${meals}">
-        <td th:text="${meal.name}"></td>
+        <td><a th:href="'/plan/'+${planId}+'/day/'+${dayId}+'/meal/'+${meal.id}" th:text="${meal.name}"></a></td>
     </tr>
     <tr>
         <td><a th:href="'/plan/' + ${planId} + '/day/' + ${dayId} + '/meal/form'">Add a Meal</a></td>

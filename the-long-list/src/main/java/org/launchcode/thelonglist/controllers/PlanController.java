@@ -103,7 +103,7 @@ public class PlanController {
         mealCourse.setMeal(meal);
         model.addAttribute("mealCourse", mealCourse);
         model.addAttribute("title", meal.getName());
-        model.addAttribute("mealCourses", meal.getCourses());
+        model.addAttribute("addedCourses", meal.getCourses());
         model.addAttribute("allCourses", courseRepository.findAll());
         model.addAttribute("dayId", dayId);
         model.addAttribute("planId", planId);
