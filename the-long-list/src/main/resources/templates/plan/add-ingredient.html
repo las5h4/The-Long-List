@@ -1,0 +1,27 @@
+<html language="en" xmlns:th="http://www.thymeleaf.org/">
+<head th:replace="fragments :: head"></head>
+<body>
+<header th:replace="fragments :: header"></header>
+<table class="table">
+    <tr>
+        <th>Ingredients</th>
+    </tr>
+    <tr th:each="courseIngredient : ${courseIngredients}">
+        <td th:text="${courseIngredient.name}"></td>
+    </tr>
+</table>
+<form th:action="'/plan/'+${planId}+'/day/'+${dayId}+'/meal/'+${mealId}+'/course/'+${courseId}+'/ingredient/add'">
+    <div class="form-group">
+        <input type = "hidden" th:field="${courseIngredient.course}">
+        <select th:field="${courseIngredient.ingredient}">
+            <option th:each="ingredient : ${allIngredients}" th:value="${ingredient.id}" th:text="${ingredient.name}"></option>
+        </select>
+    </div>
+    <div class="form-group">
+        <input type="submit" value="Add Ingredient" class="btn btn-success">
+    </div>
+</form>
+<a th:href="'/plan/'+${planId}+'/day/'+${dayId}+'/meal/'+${mealId}+'/course/'+${courseId}+'/ingredient/create'" class="btn btn-success" role="button">Create a new Ingredient</a>
+<a th:href="'/plan/'+${planId}+'/day/'+${dayId}+'/meal/'+${mealId}" class="btn btn-success" role="button">Back</a>
+</body>
+</html>

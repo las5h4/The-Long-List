@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html language="en" xmlns:th="http://www.thymeleaf.org/">
+<head th:replace="fragments :: head"></head>
+<body>
+<header th:replace="fragments :: header"></header>
+<form th:action="'/plan/'+${planId}+'/day/'+${dayId}+'/meal/'+${mealId}+'/course/'+${courseId}+'/ingredient/create/process_form'">
+    <div class="form-group">
+        <label>Name your new Ingredient (examples: Flour, Russet Potatoes, etc.)
+            <input th:field="${ingredient.name}" class="form-control">
+        </label>
+    </div>
+    <div class="form-group">
+        <input type="submit" value="Create Ingredient" class="btn btn-success">
+    </div>
+</form>
+<a th:href="'/plan/'+${planId}+'/day/'+${dayId}+'/meal/'+${mealId}+'/course/'+${courseId}" class="btn btn-success" role="button">Back</a>
+</body>
+</html>

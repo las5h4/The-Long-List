@@ -2,6 +2,7 @@ package org.launchcode.thelonglist.controllers;
 
 import org.launchcode.thelonglist.data.*;
 import org.launchcode.thelonglist.models.*;
+import org.launchcode.thelonglist.models.dto.CourseIngredientDTO;
 import org.launchcode.thelonglist.models.dto.MealCourseDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -119,5 +120,66 @@ public class PlanController {
             mealRepository.save(meal);
         }
         return new RedirectView("/plan/"+planId+"/day/"+dayId+"/meal/"+mealId);
+    }
+
+    @GetMapping("{planId}/day/{dayId}/meal/{mealId}/create-course")
+    public String displayCreateCourseForm(@PathVariable Integer mealId, @PathVariable Integer dayId, @PathVariable Integer planId, Model model) {
+        model.addAttribute("title", "Create a New Course");
+        model.addAttribute("dayId", dayId);
+        model.addAttribute("planId", planId);
+        model.addAttribute("mealId", mealId);
+        model.addAttribute(new Course());
+        return "plan/create-course";
+    }
+
+    @GetMapping("{planId}/day/{dayId}/meal/{mealId}/course/create")
+    public RedirectView createCourse(@ModelAttribute Course course, @PathVariable Integer mealId, @PathVariable Integer dayId, @PathVariable Integer planId) {
+        courseRepository.save(course);
+        return new RedirectView("/plan/"+planId+"/day/"+dayId+"/meal/"+mealId+"/course/"+course.getId());
+    }
+
+    @GetMapping("{planId}/day/{dayId}/meal/{mealId}/course/{courseId}")
+    public String displayAddIngredientsToCourseForm(@PathVariable Integer mealId, @PathVariable Integer dayId, @PathVariable Integer planId, @PathVariable Integer courseId, Model model) {
+        Optional<Course> result = courseRepository.findById(courseId);
+        Course course = result.get();
+        CourseIngredientDTO courseIngredient = new CourseIngredientDTO();
+        courseIngredient.setCourse(course);
+        model.addAttribute("title", course.getName());
+        model.addAttribute("courseIngredient", courseIngredient);
+        model.addAttribute("courseIngredients", course.getIngredients());
+        model.addAttribute("allIngredients", ingredientRepository.findAll());
+        model.addAttribute("dayId", dayId);
+        model.addAttribute("planId", planId);
+        model.addAttribute("mealId", mealId);
+        model.addAttribute("courseId", courseId);
+        return "plan/add-ingredient";
+    }
+
+    @GetMapping("{planId}/day/{dayId}/meal/{mealId}/course/{courseId}/ingredient/add")
+    public RedirectView createIngredient(@ModelAttribute CourseIngredientDTO courseIngredient, @PathVariable Integer mealId, @PathVariable Integer dayId, @PathVariable Integer planId, @PathVariable Integer courseId){
+        Course course = courseIngredient.getCourse();
+        Ingredient ingredient = courseIngredient.getIngredient();
+        if (!course.getIngredients().contains(ingredient)) {
+            course.addIngredients(ingredient);
+            courseRepository.save(course);
+        }
+        return new RedirectView("/plan/"+planId+"/day/"+dayId+"/meal/"+mealId+"/course/"+courseId);
+    }
+
+    @GetMapping("{planId}/day/{dayId}/meal/{mealId}/course/{courseId}/ingredient/create")
+    public String displayCreateIngredientForm(@PathVariable Integer mealId, @PathVariable Integer dayId, @PathVariable Integer planId, @PathVariable Integer courseId, Model model) {
+        model.addAttribute("title", "Add Ingredient");
+        model.addAttribute("dayId", dayId);
+        model.addAttribute("planId", planId);
+        model.addAttribute("mealId", mealId);
+        model.addAttribute("courseId", courseId);
+        model.addAttribute(new Ingredient());
+        return "plan/create-ingredient";
+    }
+
+    @GetMapping("{planId}/day/{dayId}/meal/{mealId}/course/{courseId}/ingredient/create/process_form")
+    public RedirectView processCreateIngredientForm(@ModelAttribute Ingredient ingredient, @PathVariable Integer mealId, @PathVariable Integer dayId, @PathVariable Integer planId, @PathVariable Integer courseId) {
+        ingredientRepository.save(ingredient);
+        return new RedirectView("/plan/"+planId+"/day/"+dayId+"/meal/"+mealId+"/course/"+courseId);
     }
 }
