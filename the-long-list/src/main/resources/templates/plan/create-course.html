@@ -3,7 +3,7 @@
 <head th:replace="fragments :: head"></head>
 <body>
 <header th:replace="fragments :: header"></header>
-<form th:action="'/plan/'+${planId}+'/day/'+${dayId}+'/meal/'+${mealId}+'/course/create'">
+<form th:action="'/plan/'+${planId}+'/day/'+${dayId}+'/meal/'+${mealId}+'/course/form/process'">
     <div class="form-group">
         <label>Name your new Course (examples: Pizza, Roasted Vegetables, etc.)
             <input th:field="${course.name}" class="form-control">

@@ -11,7 +11,7 @@
         <td th:text="${mealCourse.name}"></td>
     </tr>
 </table>
-<form th:action="'/plan/'+${planId}+'/day/'+${dayId}+'/meal/'+${mealId}+'/add-course'">
+<form th:action="'/plan/'+${planId}+'/day/'+${dayId}+'/meal/'+${mealId}+'/course/add'">
     <div class="form-group">
         <input type = "hidden" th:field="${mealCourse.meal}">
         <select th:field="${mealCourse.course}">
@@ -22,7 +22,7 @@
         <input type="submit" value="Add Course" class="btn btn-success">
     </div>
 </form>
-<a th:href="'/plan/'+${planId}+'/day/'+${dayId}+'/meal/'+${mealId}+'/create-course'" class="btn btn-success" role="button">Create a new Course</a>
+<a th:href="'/plan/'+${planId}+'/day/'+${dayId}+'/meal/'+${mealId}+'/course/form'" class="btn btn-success" role="button">Create a new Course</a>
 <a th:href="'/plan/'+${planId}+'/day/'+${dayId}" class="btn btn-success" role="button">Back</a>
 </body>
 </html>

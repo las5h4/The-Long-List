@@ -11,7 +11,7 @@
         <td th:text="${meal.name}"></td>
     </tr>
     <tr>
-        <td><a th:href="'/plan/' + ${planId} + '/day/' + ${dayId} + '/add-meal'">Add a Meal</a></td>
+        <td><a th:href="'/plan/' + ${planId} + '/day/' + ${dayId} + '/meal/form'">Add a Meal</a></td>
     </tr>
 </table>
 <a th:href="'/plan/' + ${planId}" class="btn btn-success" role="button">Back to Plan</a>

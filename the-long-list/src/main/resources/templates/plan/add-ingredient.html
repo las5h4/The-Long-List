@@ -10,7 +10,7 @@
         <td th:text="${courseIngredient.name}"></td>
     </tr>
 </table>
-<form th:action="'/plan/'+${planId}+'/day/'+${dayId}+'/meal/'+${mealId}+'/course/'+${courseId}+'/ingredient/add'">
+<form th:action="'/plan/'+${planId}+'/day/'+${dayId}+'/meal/'+${mealId}+'/course/'+${courseId}+'/ingredient/form'">
     <div class="form-group">
         <input type = "hidden" th:field="${courseIngredient.course}">
         <select th:field="${courseIngredient.ingredient}">

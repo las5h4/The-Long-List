@@ -10,7 +10,7 @@
     </tr>
     <tr th:each="plan : ${plans}">
         <td th:text="${plan.name}"></td>
-        <td th:text="'${plan.planLength}' + ' days'"></td>
+        <td th:text="${plan.planLength} + ' days'"></td>
     </tr>
 </table>
 <a href="plans/start-new">Start a new Plan</a>

@@ -74,7 +74,7 @@ public class PlanController {
         return "plan/day";
     }
 
-    @GetMapping("{planId}/day/{dayId}/add-meal")
+    @GetMapping("{planId}/day/{dayId}/meal/form")
     public String displayAddMealForm(@PathVariable Integer dayId, @PathVariable Integer planId, Model model){
         Optional<Day> result = dayRepository.findById(dayId);
         Day day = result.get();
@@ -86,7 +86,7 @@ public class PlanController {
         return "plan/add-meal";
     }
 
-    @GetMapping("{planId}/day/{dayId}/create")
+    @GetMapping("{planId}/day/{dayId}/meal/form/process")
     public RedirectView processAddMealForm(@ModelAttribute Meal meal, @PathVariable Integer dayId, @PathVariable Integer planId) {
         Optional<Day> result = dayRepository.findById(dayId);
         Day day = result.get();
@@ -111,7 +111,7 @@ public class PlanController {
         return "plan/meal-courses";
     }
 
-    @GetMapping("{planId}/day/{dayId}/meal/{mealId}/add-course")
+    @GetMapping("{planId}/day/{dayId}/meal/{mealId}/course/add")
     public RedirectView addCourse(@ModelAttribute MealCourseDTO mealCourse, @PathVariable Integer mealId, @PathVariable Integer dayId, @PathVariable Integer planId) {
         Meal meal = mealCourse.getMeal();
         Course course = mealCourse.getCourse();
@@ -122,7 +122,7 @@ public class PlanController {
         return new RedirectView("/plan/"+planId+"/day/"+dayId+"/meal/"+mealId);
     }
 
-    @GetMapping("{planId}/day/{dayId}/meal/{mealId}/create-course")
+    @GetMapping("{planId}/day/{dayId}/meal/{mealId}/course/form")
     public String displayCreateCourseForm(@PathVariable Integer mealId, @PathVariable Integer dayId, @PathVariable Integer planId, Model model) {
         model.addAttribute("title", "Create a New Course");
         model.addAttribute("dayId", dayId);
@@ -132,7 +132,7 @@ public class PlanController {
         return "plan/create-course";
     }
 
-    @GetMapping("{planId}/day/{dayId}/meal/{mealId}/course/create")
+    @GetMapping("{planId}/day/{dayId}/meal/{mealId}/course/form/process")
     public RedirectView createCourse(@ModelAttribute Course course, @PathVariable Integer mealId, @PathVariable Integer dayId, @PathVariable Integer planId) {
         courseRepository.save(course);
         return new RedirectView("/plan/"+planId+"/day/"+dayId+"/meal/"+mealId+"/course/"+course.getId());
@@ -166,7 +166,7 @@ public class PlanController {
         return new RedirectView("/plan/"+planId+"/day/"+dayId+"/meal/"+mealId+"/course/"+courseId);
     }
 
-    @GetMapping("{planId}/day/{dayId}/meal/{mealId}/course/{courseId}/ingredient/create")
+    @GetMapping("{planId}/day/{dayId}/meal/{mealId}/course/{courseId}/ingredient/form")
     public String displayCreateIngredientForm(@PathVariable Integer mealId, @PathVariable Integer dayId, @PathVariable Integer planId, @PathVariable Integer courseId, Model model) {
         model.addAttribute("title", "Add Ingredient");
         model.addAttribute("dayId", dayId);
@@ -177,7 +177,7 @@ public class PlanController {
         return "plan/create-ingredient";
     }
 
-    @GetMapping("{planId}/day/{dayId}/meal/{mealId}/course/{courseId}/ingredient/create/process_form")
+    @GetMapping("{planId}/day/{dayId}/meal/{mealId}/course/{courseId}/ingredient/form/process")
     public RedirectView processCreateIngredientForm(@ModelAttribute Ingredient ingredient, @PathVariable Integer mealId, @PathVariable Integer dayId, @PathVariable Integer planId, @PathVariable Integer courseId) {
         ingredientRepository.save(ingredient);
         return new RedirectView("/plan/"+planId+"/day/"+dayId+"/meal/"+mealId+"/course/"+courseId);

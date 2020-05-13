@@ -3,7 +3,7 @@
 <head th:replace="fragments :: head"></head>
 <body>
 <header th:replace="fragments :: header"></header>
-<form th:action="'/plan/'+${planId}+'/day/'+${dayId}+'/meal/'+${mealId}+'/course/'+${courseId}+'/ingredient/create/process_form'">
+<form th:action="'/plan/'+${planId}+'/day/'+${dayId}+'/meal/'+${mealId}+'/course/'+${courseId}+'/ingredient/form/process'">
     <div class="form-group">
         <label>Name your new Ingredient (examples: Flour, Russet Potatoes, etc.)
             <input th:field="${ingredient.name}" class="form-control">
