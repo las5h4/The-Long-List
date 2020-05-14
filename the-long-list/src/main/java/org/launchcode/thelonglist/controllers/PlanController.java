@@ -202,4 +202,15 @@ public class PlanController {
         ingredientRepository.save(ingredient);
         return new RedirectView("/plan/"+planId+"/day/"+dayId+"/meal/"+mealId+"/course/"+courseId);
     }
+
+    @GetMapping("{planId}/day/{dayId}/meal/{mealId}/course/{courseId}/ingredient/{ingredientId}/remove")
+    public RedirectView removeIngredientFromCourse(@PathVariable Integer ingredientId, @PathVariable Integer mealId, @PathVariable Integer dayId, @PathVariable Integer planId, @PathVariable Integer courseId) {
+        Optional<Ingredient> ingredientResult = ingredientRepository.findById(ingredientId);
+        Optional<Course> courseResult = courseRepository.findById(courseId);
+        Ingredient ingredient = ingredientResult.get();
+        Course course = courseResult.get();
+        course.removeIngredient(ingredient);
+        courseRepository.save(course);
+        return new RedirectView("/plan/"+planId+"/day/"+dayId+"/meal/"+mealId+"/course/"+courseId);
+    }
 }

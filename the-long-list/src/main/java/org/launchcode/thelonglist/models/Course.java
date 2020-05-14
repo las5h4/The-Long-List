@@ -47,5 +47,5 @@ public class Course extends AbstractEntity {
         this.ingredients.add(ingredient);
     }
 
-
+    public void removeIngredient(Ingredient ingredient) {ingredients.remove(ingredient); }
 }
