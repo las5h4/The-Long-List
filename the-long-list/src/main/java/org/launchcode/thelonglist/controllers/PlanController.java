@@ -163,6 +163,18 @@ public class PlanController {
         return "plan/add-ingredient";
     }
 
+    @GetMapping("{planId}/day/{dayId}/meal/{mealId}/course/{courseId}/remove")
+    public RedirectView removeCourseFromMeal (@PathVariable Integer mealId, @PathVariable Integer dayId, @PathVariable Integer planId, @PathVariable Integer courseId) {
+        Optional<Course> result = courseRepository.findById(courseId);
+        Course course = result.get();
+        Optional<Meal> mealResult = mealRepository.findById(mealId);
+        Meal meal = mealResult.get();
+        meal.removeCourse(course);
+        mealRepository.save(meal);
+        return new RedirectView("/plan/"+planId+"/day/"+dayId+"/meal/"+mealId);
+    }
+
+
     @GetMapping("{planId}/day/{dayId}/meal/{mealId}/course/{courseId}/ingredient/add")
     public RedirectView createIngredient(@ModelAttribute CourseIngredientDTO courseIngredient, @PathVariable Integer mealId, @PathVariable Integer dayId, @PathVariable Integer planId, @PathVariable Integer courseId){
         Course course = courseIngredient.getCourse();

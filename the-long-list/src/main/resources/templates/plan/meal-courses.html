@@ -9,6 +9,7 @@
     </tr>
     <tr th:each="addedCourse : ${addedCourses}">
         <td><a th:href="'/plan/'+${planId}+'/day/'+${dayId}+'/meal/'+${mealId}+'/course/'+${addedCourse.id}" th:text="${addedCourse.name}"></a></td>
+        <td><a th:href="'/plan/'+${planId}+'/day/'+${dayId}+'/meal/'+${mealId}+'/course/'+${addedCourse.id}+'/remove'" class="btn btn-danger" role="button">Remove</a></td>
     </tr>
 </table>
 <form th:action="'/plan/'+${planId}+'/day/'+${dayId}+'/meal/'+${mealId}+'/course/add'">
