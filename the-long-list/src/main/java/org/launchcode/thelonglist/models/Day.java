@@ -9,7 +9,7 @@ public class Day extends AbstractEntity {
 
     private String name;
 
-    @OneToMany(mappedBy = "day")
+    @OneToMany(mappedBy = "day", orphanRemoval = true, cascade = CascadeType.PERSIST)
     private final List<Meal> meals = new ArrayList<>();
 
     @ManyToOne(cascade = {CascadeType.ALL})
