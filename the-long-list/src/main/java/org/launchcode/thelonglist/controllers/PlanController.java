@@ -213,4 +213,13 @@ public class PlanController {
         courseRepository.save(course);
         return new RedirectView("/plan/"+planId+"/day/"+dayId+"/meal/"+mealId+"/course/"+courseId);
     }
+
+    @GetMapping("{planId}/list/generate")
+    public RedirectView generateGroceryList(@PathVariable Integer planId) {
+        Optional<Plan> result = planRepository.findById(planId);
+        Plan plan = result.get();
+        GroceryList list = new GroceryList(plan);
+        list.generateList();
+        return new RedirectView("/list/view/"+list.getId());
+    }
 }
