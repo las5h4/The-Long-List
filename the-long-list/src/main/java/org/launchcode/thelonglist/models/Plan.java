@@ -16,6 +16,9 @@ public class Plan extends AbstractEntity {
     @OneToMany(mappedBy = "plan", cascade = {CascadeType.ALL})
     private final List<Day> days = new ArrayList<>();
 
+    @OneToMany(mappedBy = "plan", cascade = {CascadeType.ALL})
+    private final List<GroceryList> lists = new ArrayList<>();
+
     public Plan(String name, int planLength) {
         this.name = name;
         this.planLength = planLength;

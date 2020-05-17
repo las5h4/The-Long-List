@@ -11,7 +11,7 @@
         <td><a th:href="'/plan/'+${planId}+'/day/'+${dayId}+'/meal/'+${mealId}+'/course/'+${courseId}+'/ingredient/'+${courseIngredient.id}+'/remove'" class="btn btn-danger">Remove</a></td>
     </tr>
 </table>
-<form th:action="'/plan/'+${planId}+'/day/'+${dayId}+'/meal/'+${mealId}+'/course/'+${courseId}+'/ingredient/form'">
+<form th:action="'/plan/'+${planId}+'/day/'+${dayId}+'/meal/'+${mealId}+'/course/'+${courseId}+'/ingredient/add'">
     <div class="form-group">
         <input type = "hidden" th:field="${courseIngredient.course}">
         <select th:field="${courseIngredient.ingredient}">

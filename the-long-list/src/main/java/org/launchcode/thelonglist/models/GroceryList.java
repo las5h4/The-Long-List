@@ -1,6 +1,9 @@
 package org.launchcode.thelonglist.models;
 
 import javax.persistence.Entity;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,16 +12,18 @@ public class GroceryList extends AbstractEntity {
 
     private String name;
 
+    @ManyToOne
     private Plan plan;
 
+    @ManyToMany
     private List<Ingredient> listIngredients = new ArrayList<>();
 
     public GroceryList(Plan plan) {
         this.plan = plan;
     }
 
-//    public GroceryList() {
-//    }
+    public GroceryList() {
+    }
 
     public String getName() {
         return name;

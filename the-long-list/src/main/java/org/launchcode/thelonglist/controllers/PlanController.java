@@ -33,6 +33,9 @@ public class PlanController {
     @Autowired
     IngredientRepository ingredientRepository;
 
+    @Autowired
+    ListRepository listRepository;
+
     @GetMapping("start")
     public String startNewPlan(Model model) {
         model.addAttribute("title", "Start New Plan");
@@ -186,7 +189,7 @@ public class PlanController {
         return new RedirectView("/plan/"+planId+"/day/"+dayId+"/meal/"+mealId+"/course/"+courseId);
     }
 
-    @GetMapping("{planId}/day/{dayId}/meal/{mealId}/course/{courseId}/ingredient/form")
+    @GetMapping("{planId}/day/{dayId}/meal/{mealId}/course/{courseId}/ingredient/create")
     public String displayCreateIngredientForm(@PathVariable Integer mealId, @PathVariable Integer dayId, @PathVariable Integer planId, @PathVariable Integer courseId, Model model) {
         model.addAttribute("title", "Add Ingredient");
         model.addAttribute("dayId", dayId);
@@ -220,6 +223,7 @@ public class PlanController {
         Plan plan = result.get();
         GroceryList list = new GroceryList(plan);
         list.generateList();
+        listRepository.save(list);
         return new RedirectView("/list/view/"+list.getId());
     }
 }
