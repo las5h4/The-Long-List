@@ -9,7 +9,7 @@
         <th>Length</th>
     </tr>
     <tr th:each="plan : ${plans}">
-        <td th:text="${plan.name}"></td>
+        <td><a th:href="'/plan/'+${plan.id}" th:text="${plan.name}"></a></td>
         <td th:text="${plan.planLength} + ' days'"></td>
     </tr>
 </table>

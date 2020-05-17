@@ -36,6 +36,13 @@ public class PlanController {
     @Autowired
     ListRepository listRepository;
 
+    @GetMapping
+    public String viewPlanIndex(Model model) {
+        model.addAttribute("title", "My Plans");
+        model.addAttribute("plans", planRepository.findAll());
+        return "plan/index";
+    }
+
     @GetMapping("start")
     public String startNewPlan(Model model) {
         model.addAttribute("title", "Start New Plan");
