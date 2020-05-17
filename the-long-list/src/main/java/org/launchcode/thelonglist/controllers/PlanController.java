@@ -230,6 +230,7 @@ public class PlanController {
         Plan plan = result.get();
         GroceryList list = new GroceryList(plan);
         list.generateList();
+        list.setName(plan.getName());
         listRepository.save(list);
         return new RedirectView("/list/view/"+list.getId());
     }

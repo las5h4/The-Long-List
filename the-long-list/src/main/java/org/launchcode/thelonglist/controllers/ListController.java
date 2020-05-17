@@ -20,6 +20,13 @@ public class ListController {
     @Autowired
     ListRepository listRepository;
 
+    @GetMapping
+    public String viewListIndex(Model model) {
+        model.addAttribute("title", "My Lists");
+        model.addAttribute("lists", listRepository.findAll());
+        return "list/index";
+    }
+
     @GetMapping("view/{listId}")
     public String viewList(@PathVariable Integer listId, Model model) {
         Optional<GroceryList> result = listRepository.findById(listId);

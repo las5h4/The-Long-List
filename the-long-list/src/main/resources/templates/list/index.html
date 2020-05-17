@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html language="en" xmlns:th="http://www.thymeleaf.org/">
+<head th:replace="fragments :: head"></head>
+<body>
+<header th:replace="fragments :: header"></header>
+<table class="table">
+    <tr>
+        <th>List Name</th>
+    </tr>
+    <tr th:each="list : ${lists}">
+        <td><a th:href="'/list/view/'+${list.id}" th:text="${list.name}"></a></td>
+    </tr>
+</table>
+<a href="plans/start-new">Start a new Plan</a>
+</body>
+</html>
