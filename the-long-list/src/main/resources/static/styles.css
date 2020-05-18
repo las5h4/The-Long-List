@@ -6,6 +6,14 @@ body {
     background-color: #FFEAD4;
 }
 
+.nav {
+    background-color: #BFB09F;
+}
+
+.table tr td {
+    border-bottom: none;
+}
+
 h1{
     background-color: #FFEAD4;
     color: #403B35;
