@@ -5,12 +5,12 @@
 <header th:replace="fragments :: header"></header>
 <div class="container">
     <h2 th:text="${title}">The Long List</h2>
-    <table class="table">
-        <tr th:each="ingredient : ${ingredients}">
-            <td th:text="${ingredient.name}"></td>
-        </tr>
-    </table>
-    <a href="plans/start-new">Start a new Plan</a>
+    <ul>
+        <li th:each="ingredient : ${ingredients}" th:text="${ingredient.name}"></li>
+    </ul>
+    <form>
+        <input type="button" class="btn btn-success" value="Print" onClick="window.print()">
+    </form>
 </div>
 
 </body>
