@@ -2340,7 +2340,7 @@ th {
   background-color: #f9f9f9;
 }
 .table-hover > tbody > tr:hover {
-  background-color: #f5f5f5;
+  background-color: #fff;
 }
 .table > thead > tr > td.active,
 .table > tbody > tr > td.active,
@@ -4944,11 +4944,12 @@ a.badge:focus {
   padding-bottom: 30px;
   margin-bottom: 30px;
   color: inherit;
-  background-color: #ffffff;
+  background-color: transparent;
 }
 .jumbotron h1,
 .jumbotron .h1 {
   color: inherit;
+  font-size: 100px;
 }
 .jumbotron p {
   margin-bottom: 15px;

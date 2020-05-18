@@ -1,20 +1,18 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org/">
 <head th:replace="fragments :: head"></head>
-<body class="container">
-
-
-
-<header th:replace="fragments :: header"></header>
-<div class="jumbotron" style="background-color: transparent;">
-    <h1 class="display-4" style="font-family: 'Sue Ellen Francisco', cursive;">The Long List</h1>
-    <p class="lead">Make the most out of your trips to the grocery store.</p>
-    <hr class="my-4">
-    <p>An app for creating meal plans and generating grocery lists.</p>
-    <p class="lead">
-        <a class="btn btn-primary btn-lg" href="/plan" role="button">Get Started</a>
-    </p>
-</div>
-
-</body>
+    <body>
+        <header th:replace="fragments :: header"></header>
+        <div class="container">
+            <div class="jumbotron" style="background-color: transparent;">
+                <h1 class="display-4" style="font-family: 'Sue Ellen Francisco', cursive; font-size: 100px; padding-bottom: 63px;">The Long List</h1>
+                <p class="lead">Make the most out of your trips to the grocery store.</p>
+                <hr class="my-4">
+                <p>An app for creating meal plans and generating grocery lists.</p>
+                <p class="lead">
+                    <a class="btn btn-primary btn-lg" href="/plan" role="button">Get Started</a>
+                </p>
+            </div>
+        </div>
+    </body>
 </html>

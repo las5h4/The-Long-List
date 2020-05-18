@@ -3,27 +3,31 @@
 <head th:replace="fragments :: head"></head>
 <body>
 <header th:replace="fragments :: header"></header>
-<table class="table">
-    <tr>
-        <th>Courses</th>
-    </tr>
-    <tr th:each="addedCourse : ${addedCourses}">
-        <td><a th:href="'/plan/'+${planId}+'/day/'+${dayId}+'/meal/'+${mealId}+'/course/'+${addedCourse.id}" th:text="${addedCourse.name}"></a></td>
-        <td><a th:href="'/plan/'+${planId}+'/day/'+${dayId}+'/meal/'+${mealId}+'/course/'+${addedCourse.id}+'/remove'" class="btn btn-danger" role="button">Remove</a></td>
-    </tr>
-</table>
-<form th:action="'/plan/'+${planId}+'/day/'+${dayId}+'/meal/'+${mealId}+'/course/add'">
-    <div class="form-group">
-        <input type = "hidden" th:field="${mealCourse.meal}">
-        <select th:field="${mealCourse.course}">
-            <option th:each="course : ${allCourses}" th:value="${course.id}" th:text="${course.name}"></option>
-        </select>
-    </div>
-    <div class="form-group">
-        <input type="submit" value="Add Course" class="btn btn-success">
-    </div>
-</form>
-<a th:href="'/plan/'+${planId}+'/day/'+${dayId}+'/meal/'+${mealId}+'/course/form'" class="btn btn-success" role="button">Create a new Course</a>
-<a th:href="'/plan/'+${planId}+'/day/'+${dayId}" class="btn btn-success" role="button">Back</a>
+<div class="container">
+    <h2 th:text="${title}">The Long List</h2>
+    <table class="table table-hover">
+        <tr>
+            <th>Courses</th>
+        </tr>
+        <tr th:each="addedCourse : ${addedCourses}">
+            <td><a th:href="'/plan/'+${planId}+'/day/'+${dayId}+'/meal/'+${mealId}+'/course/'+${addedCourse.id}" th:text="${addedCourse.name}"></a></td>
+            <td><a th:href="'/plan/'+${planId}+'/day/'+${dayId}+'/meal/'+${mealId}+'/course/'+${addedCourse.id}+'/remove'" class="btn btn-danger" role="button">Remove</a></td>
+        </tr>
+    </table>
+    <form th:action="'/plan/'+${planId}+'/day/'+${dayId}+'/meal/'+${mealId}+'/course/add'">
+        <div class="form-group">
+            <input type = "hidden" th:field="${mealCourse.meal}">
+            <select th:field="${mealCourse.course}">
+                <option th:each="course : ${allCourses}" th:value="${course.id}" th:text="${course.name}"></option>
+            </select>
+        </div>
+        <div class="form-group">
+            <input type="submit" value="Add Course" class="btn btn-success">
+        </div>
+    </form>
+    <a th:href="'/plan/'+${planId}+'/day/'+${dayId}+'/meal/'+${mealId}+'/course/form'" class="btn btn-success" role="button">Create a new Course</a>
+    <a th:href="'/plan/'+${planId}+'/day/'+${dayId}" class="btn btn-success" role="button">Back</a>
+</div>
+
 </body>
 </html>

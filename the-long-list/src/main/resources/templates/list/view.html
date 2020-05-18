@@ -3,11 +3,15 @@
 <head th:replace="fragments :: head"></head>
 <body>
 <header th:replace="fragments :: header"></header>
-<table class="table">
-    <tr th:each="ingredient : ${ingredients}">
-        <td th:text="${ingredient.name}"></td>
-    </tr>
-</table>
-<a href="plans/start-new">Start a new Plan</a>
+<div class="container">
+    <h2 th:text="${title}">The Long List</h2>
+    <table class="table">
+        <tr th:each="ingredient : ${ingredients}">
+            <td th:text="${ingredient.name}"></td>
+        </tr>
+    </table>
+    <a href="plans/start-new">Start a new Plan</a>
+</div>
+
 </body>
 </html>
