@@ -1,6 +1,7 @@
 package org.launchcode.thelonglist.controllers;
 
 import org.launchcode.thelonglist.data.ListRepository;
+import org.launchcode.thelonglist.models.Constants;
 import org.launchcode.thelonglist.models.GroceryList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -31,8 +32,10 @@ public class ListController {
     public String viewList(@PathVariable Integer listId, Model model) {
         Optional<GroceryList> result = listRepository.findById(listId);
         GroceryList list = result.get();
-        model.addAttribute("title", "List");
-        model.addAttribute("ingredients", list.getList());
+        model.addAttribute("title", list.getPlan().getName());
+        for (String category : Constants.getIngredientCategories()) {
+            model.addAttribute(category.replaceAll("[^a-zA-Z]","")+"List", list.getList(category));
+        }
         return "list/view";
     }
 }

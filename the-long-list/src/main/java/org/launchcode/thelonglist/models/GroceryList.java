@@ -55,7 +55,13 @@ public class GroceryList extends AbstractEntity {
         }
     }
 
-    public List<Ingredient> getList() {
-        return listIngredients;
+    public List<Ingredient> getList(String category) {
+        List<Ingredient> categoryList = new ArrayList<>();
+        for (Ingredient ingredient : listIngredients) {
+            if (ingredient.getCategory().equals(category)) {
+                categoryList.add(ingredient);
+            }
+        }
+        return categoryList;
     }
 }
