@@ -5,6 +5,7 @@ import org.launchcode.thelonglist.models.*;
 import org.launchcode.thelonglist.models.dto.CourseIngredientDTO;
 import org.launchcode.thelonglist.models.dto.MealCourseDTO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -12,6 +13,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
+import java.util.Collection;
+import java.util.List;
 import java.util.Optional;
 
 @Controller
@@ -165,7 +168,7 @@ public class PlanController {
         model.addAttribute("title", course.getName());
         model.addAttribute("courseIngredient", courseIngredient);
         model.addAttribute("courseIngredients", course.getIngredients());
-        model.addAttribute("allIngredients", ingredientRepository.findAll());
+        model.addAttribute("allIngredients", ingredientRepository.findAllByOrderByNameAsc());
         model.addAttribute("dayId", dayId);
         model.addAttribute("planId", planId);
         model.addAttribute("mealId", mealId);

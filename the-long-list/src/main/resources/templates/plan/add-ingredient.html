@@ -7,9 +7,11 @@
     <table class="table table-hover">
         <tr>
             <th>Ingredients</th>
+            <th>Category</th>
         </tr>
         <tr th:each="courseIngredient : ${courseIngredients}">
             <td th:text="${courseIngredient.name}"></td>
+            <td th:text="${courseIngredient.category}"></td>
             <td><a th:href="'/plan/'+${planId}+'/day/'+${dayId}+'/meal/'+${mealId}+'/course/'+${courseId}+'/ingredient/'+${courseIngredient.id}+'/remove'" class="btn btn-danger">Remove</a></td>
         </tr>
     </table>
