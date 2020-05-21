@@ -39,6 +39,8 @@ public class PlanController {
     @Autowired
     ListRepository listRepository;
 
+
+
     @GetMapping
     public String viewPlanIndex(Model model) {
         model.addAttribute("title", "My Plans");
@@ -202,6 +204,7 @@ public class PlanController {
     @GetMapping("{planId}/day/{dayId}/meal/{mealId}/course/{courseId}/ingredient/create")
     public String displayCreateIngredientForm(@PathVariable Integer mealId, @PathVariable Integer dayId, @PathVariable Integer planId, @PathVariable Integer courseId, Model model) {
         model.addAttribute("title", "Add Ingredient");
+        model.addAttribute("INGREDIENT_CATEGORIES", Constants.getIngredientCategories());
         model.addAttribute("dayId", dayId);
         model.addAttribute("planId", planId);
         model.addAttribute("mealId", mealId);

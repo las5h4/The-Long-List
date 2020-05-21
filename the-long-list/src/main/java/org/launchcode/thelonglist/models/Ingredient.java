@@ -12,7 +12,7 @@ public class Ingredient extends AbstractEntity {
 
     private String category;
 
-    public static final List<String> INGREDIENT_CATEGORIES = List.of("Fresh Produce", "Deli", "Bakery", "Cheese", "Spices", "Dry/Baking", "Canned/Jarred Goods", "Condiments", "Meat/Seafood", "Dairy", "Frozen", "Snacks", "Beverages (Non-Alcoholic)", "Alcohol", "Other");
+
 
     @ManyToMany(mappedBy = "ingredients")
     private final List<Course> courses = new ArrayList<>();

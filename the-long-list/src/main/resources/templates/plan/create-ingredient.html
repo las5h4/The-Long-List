@@ -10,6 +10,11 @@
             <label>Name your new Ingredient (examples: Flour, Russet Potatoes, etc.)
                 <input th:field="${ingredient.name}" class="form-control">
             </label>
+            <label>Category
+                <select th:field="${ingredient.category}" class="form-control">
+                    <option th:each="category : ${INGREDIENT_CATEGORIES}" th:value="${category}" th:text="${category}"/>
+                </select>
+            </label>
         </div>
         <div class="form-group">
             <input type="submit" value="Create Ingredient" class="btn btn-success">
