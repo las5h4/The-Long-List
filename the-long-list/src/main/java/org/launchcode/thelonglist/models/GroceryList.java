@@ -18,6 +18,9 @@ public class GroceryList extends AbstractEntity {
     @ManyToMany
     private List<Ingredient> listIngredients = new ArrayList<>();
 
+    @ManyToOne
+    private User user;
+
     public GroceryList(Plan plan) {
         this.plan = plan;
     }

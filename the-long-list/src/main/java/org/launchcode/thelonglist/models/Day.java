@@ -15,6 +15,9 @@ public class Day extends AbstractEntity {
     @ManyToOne(cascade = {CascadeType.ALL})
     private Plan plan;
 
+    @ManyToOne
+    private User user;
+
     public Day(String name) {
         this.name = name;
     }
