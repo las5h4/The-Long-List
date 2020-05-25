@@ -54,4 +54,12 @@ public class Meal extends AbstractEntity {
     }
 
     public void removeCourse(Course course) { courses.remove(course); }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
 }

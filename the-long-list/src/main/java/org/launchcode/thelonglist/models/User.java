@@ -50,4 +50,44 @@ public class User extends AbstractEntity {
     public boolean isMatchingPassword(String password) {
         return encoder.matches(password, pwHash);
     }
+
+    public List<Plan> getPlans() {
+        return plans;
+    }
+
+    public List<Day> getDays() {
+        return days;
+    }
+
+    public List<Meal> getMeals() {
+        return meals;
+    }
+
+    public List<Course> getCourses() {
+        return courses;
+    }
+
+    public List<GroceryList> getLists() {
+        return lists;
+    }
+
+    public void addPlan(Plan plan) {
+        plans.add(plan);
+    }
+
+    public void addDay(Day day) {
+        days.add(day);
+    }
+
+    public void addMeal(Meal meal) {
+        meals.add(meal);
+    }
+
+    public void addCourse(Course course) {
+        courses.add(course);
+    }
+
+    public void addList(GroceryList list) {
+        lists.add(list);
+    }
 }

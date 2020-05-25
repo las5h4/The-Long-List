@@ -52,4 +52,12 @@ public class Course extends AbstractEntity {
     }
 
     public void removeIngredient(Ingredient ingredient) {ingredients.remove(ingredient); }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
 }

@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
+import javax.servlet.http.HttpSession;
 import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
@@ -39,19 +40,28 @@ public class PlanController {
     @Autowired
     ListRepository listRepository;
 
-
+    @Autowired
+    UserRepository userRepository;
 
     @GetMapping
-    public String viewPlanIndex(Model model) {
+    public String viewPlanIndex(HttpSession session, Model model) {
+        Object userId = session.getAttribute("user");
+        Optional<User> result = userRepository.findById((Integer) userId);
+        User user = result.get();
         model.addAttribute("title", "My Plans");
-        model.addAttribute("plans", planRepository.findAll());
+        model.addAttribute("plans", user.getPlans());
         return "plan/index";
     }
 
     @GetMapping("start")
-    public String startNewPlan(Model model) {
+    public String startNewPlan(HttpSession session, Model model) {
+        Object userId = session.getAttribute("user");
+        Optional<User> result = userRepository.findById((Integer) userId);
+        User user = result.get();
+        Plan newPlan = new Plan();
+        newPlan.setUser(user);
         model.addAttribute("title", "Start New Plan");
-        model.addAttribute(new Plan());
+        model.addAttribute("plan", newPlan);
         return "plan/start";
     }
 
@@ -59,6 +69,9 @@ public class PlanController {
     public RedirectView createNewPlan(@ModelAttribute Plan plan) {
         for(int i = 0; i < plan.getPlanLength(); i++) {
             Day day = new Day(plan.getName() + " Day " + (i + 1));
+            User user = plan.getUser();
+            day.setUser(user);
+            user.addDay(day);
             plan.addDay(day);
             day.setPlan(plan);
             dayRepository.save(day);
@@ -93,11 +106,14 @@ public class PlanController {
     public String displayAddMealForm(@PathVariable Integer dayId, @PathVariable Integer planId, Model model){
         Optional<Day> result = dayRepository.findById(dayId);
         Day day = result.get();
+        User user = day.getUser();
+        Meal newMeal = new Meal();
+        newMeal.setUser(user);
         model.addAttribute("title", "New Meal");
         model.addAttribute("dayName", day.getName());
         model.addAttribute("dayId", dayId);
         model.addAttribute("planId", planId);
-        model.addAttribute(new Meal());
+        model.addAttribute("meal", newMeal);
         return "plan/add-meal";
     }
 
@@ -114,12 +130,13 @@ public class PlanController {
     public String displayAddMealCoursesForm(@PathVariable Integer mealId, @PathVariable Integer dayId, @PathVariable Integer planId, Model model) {
         Optional<Meal> result = mealRepository.findById(mealId);
         Meal meal = result.get();
+        User user = meal.getUser();
         MealCourseDTO mealCourse = new MealCourseDTO();
         mealCourse.setMeal(meal);
         model.addAttribute("mealCourse", mealCourse);
         model.addAttribute("title", meal.getName());
         model.addAttribute("addedCourses", meal.getCourses());
-        model.addAttribute("allCourses", courseRepository.findAll());
+        model.addAttribute("allCourses", user.getCourses());
         model.addAttribute("dayId", dayId);
         model.addAttribute("planId", planId);
         model.addAttribute("mealId", mealId);
@@ -147,17 +164,26 @@ public class PlanController {
 
     @GetMapping("{planId}/day/{dayId}/meal/{mealId}/course/form")
     public String displayCreateCourseForm(@PathVariable Integer mealId, @PathVariable Integer dayId, @PathVariable Integer planId, Model model) {
+        Optional<Meal> result = mealRepository.findById(mealId);
+        Meal meal = result.get();
+        User user = meal.getUser();
+        Course newCourse = new Course();
+        newCourse.setUser(user);
         model.addAttribute("title", "Create a New Course");
         model.addAttribute("dayId", dayId);
         model.addAttribute("planId", planId);
         model.addAttribute("mealId", mealId);
-        model.addAttribute(new Course());
+        model.addAttribute("course", newCourse);
         return "plan/create-course";
     }
 
     @GetMapping("{planId}/day/{dayId}/meal/{mealId}/course/form/process")
     public RedirectView createCourse(@ModelAttribute Course course, @PathVariable Integer mealId, @PathVariable Integer dayId, @PathVariable Integer planId) {
+        Optional<Meal> result = mealRepository.findById(mealId);
+        Meal meal = result.get();
+        User user = meal.getUser();
         courseRepository.save(course);
+        user.addCourse(course);
         return new RedirectView("/plan/"+planId+"/day/"+dayId+"/meal/"+mealId+"/course/"+course.getId());
     }
 

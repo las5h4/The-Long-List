@@ -48,4 +48,12 @@ public class Day extends AbstractEntity {
     public void setPlan(Plan plan) {
         this.plan = plan;
     }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
 }

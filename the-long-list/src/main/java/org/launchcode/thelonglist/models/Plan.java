@@ -23,9 +23,10 @@ public class Plan extends AbstractEntity {
     @ManyToOne
     private User user;
 
-    public Plan(String name, int planLength) {
+    public Plan(String name, int planLength, User user) {
         this.name = name;
         this.planLength = planLength;
+        this.user = user;
     }
 
     public Plan() {
@@ -53,5 +54,13 @@ public class Plan extends AbstractEntity {
 
     public void addDay(Day day) {
         days.add(day);
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }
