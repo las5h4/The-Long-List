@@ -12,7 +12,7 @@
             </label>
             <label>Category
                 <select th:field="${ingredient.category}" class="form-control">
-                    <option th:each="category : ${INGREDIENT_CATEGORIES}" th:value="${category}" th:text="${category}"/>
+                    <option th:each="category : ${categories}" th:value="${category}" th:text="${category.displayName}"/>
                 </select>
             </label>
         </div>

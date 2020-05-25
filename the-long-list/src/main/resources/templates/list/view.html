@@ -5,65 +5,66 @@
 <header th:replace="fragments :: header"></header>
 <div class="container">
     <h2 th:text="${title}">The Long List</h2>
-    <h2 th:if="${FreshProduceList.size() > 0}">Fresh Produce</h2>
-    <ul th:if="${FreshProduceList.size() > 0}">
-        <li th:each="ingredient : ${FreshProduceList}" th:text="${ingredient.name}"></li>
+
+    <h2 th:if="${freshProduceList.size() > 0}">Fresh Produce</h2>
+    <ul th:if="${freshProduceList.size() > 0}">
+        <li th:each="ingredient : ${freshProduceList}" th:text="${ingredient.name}"></li>
     </ul>
-    <h2 th:if="${DeliList.size() > 0}">Deli</h2>
-    <ul th:if="${DeliList.size() > 0}">
-        <li th:each="ingredient : ${DeliList}" th:text="${ingredient.name}"></li>
+    <h2 th:if="${deliList.size() > 0}">Deli</h2>
+    <ul th:if="${deliList.size() > 0}">
+        <li th:each="ingredient : ${deliList}" th:text="${ingredient.name}"></li>
     </ul>
-    <h2 th:if="${BakeryList.size() > 0}">Bakery</h2>
-    <ul th:if="${BakeryList.size() > 0}">
-        <li th:each="ingredient : ${BakeryList}" th:text="${ingredient.name}"></li>
+    <h2 th:if="${bakeryList.size() > 0}">Bakery</h2>
+    <ul th:if="${bakeryList.size() > 0}">
+        <li th:each="ingredient : ${bakeryList}" th:text="${ingredient.name}"></li>
     </ul>
-    <h2 th:if="${CheeseList.size() > 0}">Cheese</h2>
-    <ul th:if="${CheeseList.size() > 0}">
-        <li th:each="ingredient : ${CheeseList}" th:text="${ingredient.name}"></li>
+    <h2 th:if="${cheeseList.size() > 0}">Cheese</h2>
+    <ul th:if="${cheeseList.size() > 0}">
+        <li th:each="ingredient : ${cheeseList}" th:text="${ingredient.name}"></li>
     </ul>
-    <h2 th:if="${SpicesList.size() > 0}">Spices</h2>
-    <ul th:if="${SpicesList.size() > 0}">
-        <li th:each="ingredient : ${SpicesList}" th:text="${ingredient.name}"></li>
+    <h2 th:if="${spicesList.size() > 0}">Spices</h2>
+    <ul th:if="${spicesList.size() > 0}">
+        <li th:each="ingredient : ${spicesList}" th:text="${ingredient.name}"></li>
     </ul>
-    <h2 th:if="${DryBakingList.size() > 0}">Dry/Baking</h2>
-    <ul th:if="${DryBakingList.size() > 0}">
+    <h2 th:if="${dryBakingList.size() > 0}">Dry/Baking</h2>
+    <ul th:if="${dryBakingList.size() > 0}">
         <li th:each="ingredient : ${DryBakingList}" th:text="${ingredient.name}"></li>
     </ul>
-    <h2 th:if="${CannedJarredGoodsList.size() > 0}">Canned/Jarred Goods</h2>
-    <ul th:if="${CannedJarredGoodsList.size() > 0}">
-        <li th:each="ingredient : ${CannedJarredGoodsList}" th:text="${ingredient.name}"></li>
+    <h2 th:if="${cannedJarredList.size() > 0}">Canned/Jarred Goods</h2>
+    <ul th:if="${cannedJarredList.size() > 0}">
+        <li th:each="ingredient : ${cannedJarredList}" th:text="${ingredient.name}"></li>
     </ul>
-    <h2 th:if="${CondimentsList.size() > 0}">Condiments</h2>
-    <ul th:if="${CondimentsList.size() > 0}">
-        <li th:each="ingredient : ${CondimentsList}" th:text="${ingredient.name}"></li>
+    <h2 th:if="${condimentsList.size() > 0}">Condiments</h2>
+    <ul th:if="${condimentsList.size() > 0}">
+        <li th:each="ingredient : ${condimentsList}" th:text="${ingredient.name}"></li>
     </ul>
-    <h2 th:if="${MeatSeafoodList.size() > 0}">Meat/Seafood</h2>
-    <ul th:if="${MeatSeafoodList.size() > 0}">
-        <li th:each="ingredient : ${MeatSeafoodList}" th:text="${ingredient.name}"></li>
+    <h2 th:if="${meatSeafoodList.size() > 0}">Meat/Seafood</h2>
+    <ul th:if="${meatSeafoodList.size() > 0}">
+        <li th:each="ingredient : ${meatSeafoodList}" th:text="${ingredient.name}"></li>
     </ul>
-    <h2 th:if="${DairyList.size() > 0}">Dairy</h2>
-    <ul th:if="${DairyList.size() > 0}">
-        <li th:each="ingredient : ${DairyList}" th:text="${ingredient.name}"></li>
+    <h2 th:if="${dairyList.size() > 0}">Dairy</h2>
+    <ul th:if="${dairyList.size() > 0}">
+        <li th:each="ingredient : ${dairyList}" th:text="${ingredient.name}"></li>
     </ul>
-    <h2 th:if="${FrozenList.size() > 0}">Frozen</h2>
-    <ul th:if="${FrozenList.size() > 0}">
-        <li th:each="ingredient : ${FrozenList}" th:text="${ingredient.name}"></li>
+    <h2 th:if="${frozenList.size() > 0}">Frozen</h2>
+    <ul th:if="${frozenList.size() > 0}">
+        <li th:each="ingredient : ${frozenList}" th:text="${ingredient.name}"></li>
     </ul>
-    <h2 th:if="${SnacksList.size() > 0}">Snacks</h2>
-    <ul th:if="${SnacksList.size() > 0}">
-        <li th:each="ingredient : ${SnacksList}" th:text="${ingredient.name}"></li>
+    <h2 th:if="${snacksList.size() > 0}">Snacks</h2>
+    <ul th:if="${snacksList.size() > 0}">
+        <li th:each="ingredient : ${snacksList}" th:text="${ingredient.name}"></li>
     </ul>
-    <h2 th:if="${BeveragesNonAlcoholicList.size() > 0}">Beverages (Non-Alcoholic)</h2>
-    <ul th:if="${BeveragesNonAlcoholicList.size() > 0}">
-        <li th:each="ingredient : ${BeveragesNonAlcoholicList}" th:text="${ingredient.name}"></li>
+    <h2 th:if="${beveragesList.size() > 0}">Beverages (Non-Alcoholic)</h2>
+    <ul th:if="${beveragesList.size() > 0}">
+        <li th:each="ingredient : ${beveragesNonAlcoholicList}" th:text="${ingredient.name}"></li>
     </ul>
-    <h2 th:if="${AlcoholList.size() > 0}">Alcohol</h2>
-    <ul th:if="${AlcoholList.size() > 0}">
-        <li th:each="ingredient : ${AlcoholList}" th:text="${ingredient.name}"></li>
+    <h2 th:if="${alcoholList.size() > 0}">Alcohol</h2>
+    <ul th:if="${alcoholList.size() > 0}">
+        <li th:each="ingredient : ${alcoholList}" th:text="${ingredient.name}"></li>
     </ul>
-    <h2 th:if="${OtherList.size() > 0}">Other</h2>
-    <ul th:if="${OtherList.size() > 0}">
-        <li th:each="ingredient : ${OtherList}" th:text="${ingredient.name}"></li>
+    <h2 th:if="${otherList.size() > 0}">Other</h2>
+    <ul th:if="${otherList.size() > 0}">
+        <li th:each="ingredient : ${otherList}" th:text="${ingredient.name}"></li>
     </ul>
     <form>
         <input type="button" class="btn btn-success" value="Print" onClick="window.print()">

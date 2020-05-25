@@ -2,8 +2,8 @@ package org.launchcode.thelonglist.controllers;
 
 import org.launchcode.thelonglist.data.ListRepository;
 import org.launchcode.thelonglist.data.UserRepository;
-import org.launchcode.thelonglist.models.Constants;
 import org.launchcode.thelonglist.models.GroceryList;
+import org.launchcode.thelonglist.models.IngredientCategory;
 import org.launchcode.thelonglist.models.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -42,8 +42,9 @@ public class ListController {
         Optional<GroceryList> result = listRepository.findById(listId);
         GroceryList list = result.get();
         model.addAttribute("title", list.getPlan().getName());
-        for (String category : Constants.getIngredientCategories()) {
-            model.addAttribute(category.replaceAll("[^a-zA-Z]","")+"List", list.getList(category));
+        model.addAttribute("categories", IngredientCategory.values());
+        for (IngredientCategory category : IngredientCategory.values()) {
+            model.addAttribute(category.getListName(), list.getList(category));
         }
         return "list/view";
     }

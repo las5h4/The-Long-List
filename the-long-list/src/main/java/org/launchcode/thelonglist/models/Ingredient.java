@@ -10,7 +10,7 @@ public class Ingredient extends AbstractEntity {
 
     private String name;
 
-    private String category;
+    private IngredientCategory category;
 
 
 
@@ -20,7 +20,7 @@ public class Ingredient extends AbstractEntity {
     @ManyToMany(mappedBy = "listIngredients")
     private final List<GroceryList> lists = new ArrayList<>();
 
-    public Ingredient(String name, String category) {
+    public Ingredient(String name, IngredientCategory category) {
         this.name = name;
         this.category = category;
     }
@@ -28,11 +28,11 @@ public class Ingredient extends AbstractEntity {
     public Ingredient() {
     }
 
-    public String getCategory() {
+    public IngredientCategory getCategory() {
         return category;
     }
 
-    public void setCategory(String category) {
+    public void setCategory(IngredientCategory category) {
         this.category = category;
     }
 
