@@ -260,10 +260,13 @@ public class PlanController {
     public RedirectView generateGroceryList(@PathVariable Integer planId) {
         Optional<Plan> result = planRepository.findById(planId);
         Plan plan = result.get();
+        User user = plan.getUser();
         GroceryList list = new GroceryList(plan);
         list.generateList();
         list.setName(plan.getName());
+        list.setUser(user);
         listRepository.save(list);
+        user.addList(list);
         return new RedirectView("/list/view/"+list.getId());
     }
 }
